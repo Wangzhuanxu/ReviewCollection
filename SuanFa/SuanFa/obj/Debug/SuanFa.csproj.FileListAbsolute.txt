@@ -1,0 +1,7 @@
+D:\Unity\workspace\SuanFa\SuanFa\bin\Debug\SuanFa.exe.config
+D:\Unity\workspace\SuanFa\SuanFa\bin\Debug\SuanFa.exe
+D:\Unity\workspace\SuanFa\SuanFa\bin\Debug\SuanFa.pdb
+D:\Unity\workspace\SuanFa\SuanFa\obj\Debug\SuanFa.csproj.CoreCompileInputs.cache
+D:\Unity\workspace\SuanFa\SuanFa\obj\Debug\SuanFa.exe
+D:\Unity\workspace\SuanFa\SuanFa\obj\Debug\SuanFa.pdb
+D:\Unity\workspace\SuanFa\SuanFa\obj\Debug\SuanFa.csprojAssemblyReference.cache
