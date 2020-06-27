@@ -1,0 +1,4 @@
+#ifndef CUSTOM_UNITY_INPUT
+#define CUSTOM_UNITY_INPUT
+
+#endif

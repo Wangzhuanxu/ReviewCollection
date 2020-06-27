@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/pipeline/mul_cam_test.unity
+    guid: 1c1806135d5ea8e4da26ca3b3a761e7f
   m_configObjects: {}
