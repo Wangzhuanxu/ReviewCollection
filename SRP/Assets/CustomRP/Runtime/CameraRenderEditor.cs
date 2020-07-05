@@ -27,14 +27,14 @@ public partial class CameraRender
         DrawingSettings draw = new DrawingSettings(legacyShaderTagIds[0],settings);
         for (int i = 1; i < legacyShaderTagIds.Length; i++)
         {
-            draw.SetShaderPassName(i,legacyShaderTagIds[i]);
+            draw.SetShaderPassName(i,legacyShaderTagIds[i]); //本次绘制可以使用的shader tag，也就是pass中的lightmode
         }
         //本次绘制的所有物体都使用该material
         if (errorMaterial == null)
         {
             errorMaterial = new Material(Shader.Find("Hidden/InternalErrorShader"));
         }
-        draw.overrideMaterial = errorMaterial;
+        draw.overrideMaterial = errorMaterial; //本次绘制使用的材质
         FilteringSettings fiter = FilteringSettings.defaultValue;
         _context.DrawRenderers(_results,ref draw,ref fiter);
     }

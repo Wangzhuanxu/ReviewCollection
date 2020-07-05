@@ -1,4 +1,4 @@
-﻿Shader "CustomRP/Unlit"
+﻿Shader "CustomRP/UnlitDrawMeshInstancedIndirect"
 {
     Properties
     {
@@ -22,10 +22,8 @@
            Blend [_SrcBlend][_DstBlend]
            ZWrite [_ZWrite]
            HLSLPROGRAM
-           //相当于声明了一个INSTANCING_ON的变体
-           #pragma multi_compile_instancing
            #pragma shader_feature _CLIPPING
-           #include "UnlitPass.hlsl"
+           #include "UnlitDrawMeshInstancedIndirectPass.hlsl"
            #pragma vertex UnlitVertex
            #pragma fragment UnlitFragment
            ENDHLSL

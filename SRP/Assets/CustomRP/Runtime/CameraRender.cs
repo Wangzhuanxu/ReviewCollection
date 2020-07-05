@@ -15,16 +15,21 @@ public partial class CameraRender
     private CullingResults _results;
     
     private CameraClearFlags clearFlag;
-    public void Render(ScriptableRenderContext context, Camera camera)
+
+    private bool gpuInstancing;
+    private bool dynamicBatch;
+    public void Render(ScriptableRenderContext context, Camera camera,bool gpuInstancing,bool dynamicBatch)
     {
         this._camera = camera;
         this._context = context;
+        this.gpuInstancing = gpuInstancing;
+        this.dynamicBatch = dynamicBatch;
         clearFlag = _camera.clearFlags; 
 #if UNITY_EDITOR
         PrepareBufferName();
         PrepareForSceneWindow();
 #endif
-        if (!Cull() && clearFlag < CameraClearFlags.Depth)
+        if (!Cull() && clearFlag < CameraClearFlags.Depth) //depth为ui相机，只显示ui
         {
             return;
         }
@@ -55,7 +60,7 @@ public partial class CameraRender
     {
         //设置全局的vp矩阵，shader中用于矩阵变换
         _context.SetupCameraProperties(_camera);
-        _buffer.ClearRenderTarget(clearFlag <= CameraClearFlags.Depth,clearFlag <  CameraClearFlags.Depth,
+        _buffer.ClearRenderTarget(clearFlag <= CameraClearFlags.Depth,clearFlag ==  CameraClearFlags.SolidColor,
             clearFlag < CameraClearFlags.Depth ? _camera.backgroundColor.linear : _camera.backgroundColor.gamma);
       //  _buffer.name = SampleName;
       //  DrawGeometry();
@@ -72,11 +77,14 @@ public partial class CameraRender
         SortingSettings sort = new SortingSettings(_camera);
         sort.criteria = SortingCriteria.CommonOpaque;
         DrawingSettings settings = new DrawingSettings(_shaderTagId,sort);
-        
+        settings.enableInstancing = gpuInstancing;
+        settings.enableDynamicBatching = dynamicBatch;
+
         FilteringSettings filter =  new FilteringSettings(RenderQueueRange.opaque);
         //filter.renderQueueRange = RenderQueueRange.opaque;
         filter.layerMask = _camera.cullingMask;
         _context.DrawRenderers(_results,ref settings,ref filter);
+        
         //skybox
         _context.DrawSkybox(_camera);
 
