@@ -7,6 +7,8 @@ using UnityEngine.UIElements;
 
 public partial class CameraRender
 {
+    LightRender _lightRender = new LightRender();
+    
     private ScriptableRenderContext _context;
     private Camera _camera;
     
@@ -34,6 +36,7 @@ public partial class CameraRender
             return;
         }
         SetUp();
+        _lightRender.Render(context,_results);
         DrawGeometry();
 
 #if UNITY_EDITOR
@@ -55,7 +58,8 @@ public partial class CameraRender
     }
     
     //支持的pass 的lightmode tag
-    static ShaderTagId _shaderTagId = new ShaderTagId("SRPDefaultUnlit");
+    static ShaderTagId _unlitshaderTagId = new ShaderTagId("SRPDefaultUnlit");
+    static ShaderTagId _litshaderTagId = new ShaderTagId("CustomLit");
     private void SetUp()
     {
         //设置全局的vp矩阵，shader中用于矩阵变换
@@ -76,7 +80,8 @@ public partial class CameraRender
         //opaque
         SortingSettings sort = new SortingSettings(_camera);
         sort.criteria = SortingCriteria.CommonOpaque;
-        DrawingSettings settings = new DrawingSettings(_shaderTagId,sort);
+        DrawingSettings settings = new DrawingSettings(_unlitshaderTagId,sort);
+        settings.SetShaderPassName(1,_litshaderTagId);
         settings.enableInstancing = gpuInstancing;
         settings.enableDynamicBatching = dynamicBatch;
 

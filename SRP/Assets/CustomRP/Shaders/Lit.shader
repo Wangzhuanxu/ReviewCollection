@@ -1,4 +1,4 @@
-﻿Shader "CustomRP/Unlit"
+﻿Shader "CustomRP/Lit"
 {
     Properties
     {
@@ -18,19 +18,17 @@
         Tags{"Queue" = "Geometry" }
         Pass
         {
-           Tags{}
+           Tags{"LightMode" = "CustomLit"}
            Blend [_SrcBlend][_DstBlend]
-           //对于opaque物体来讲，深度写入非常重要，因为本渲染管线绘制顺序为opaque ，skybox，transparent；
-           //若opqque不深度写入，颜色缓冲则会完全被skybox覆盖。
-           //transparent物体需要关闭深度写入
            ZWrite [_ZWrite]
            HLSLPROGRAM
+           #pragma target 3.5
            //相当于声明了一个INSTANCING_ON的变体
            #pragma multi_compile_instancing
            #pragma shader_feature _CLIPPING
-           #include "UnlitPass.hlsl"
-           #pragma vertex UnlitVertex
-           #pragma fragment UnlitFragment
+           #include "LitPass.hlsl"
+           #pragma vertex LitVertex
+           #pragma fragment LitFragment
            ENDHLSL
         }
     }
