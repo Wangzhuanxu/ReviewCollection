@@ -46,7 +46,7 @@ public class LightRender
                 SetUpLightData(i,ref light);
             }
         }
-        _commandBuffer.SetGlobalInt(DirectionLightCount,MAX_DIRECTION_LIGHT_COUNT);
+        _commandBuffer.SetGlobalInt(DirectionLightCount,_results.visibleLights.Length);
         _commandBuffer.SetGlobalVectorArray(DirectionLightDirectionPropertyId,lightDirs);
         _commandBuffer.SetGlobalVectorArray(DirectionLightColorPropertyId,lightColors);
         

@@ -3,6 +3,7 @@
 
 //在这里仅仅是引入常用的Graphic Api ，例如real4等等
 #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Common.hlsl" 
+#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/CommonMaterial.hlsl" //引入计算粗糙度的函数
 #include "UnityInput.hlsl"
 
 #define UNITY_MATRIX_M unity_ObjectToWorld
@@ -25,5 +26,10 @@ float4 TransformWorldToHClip(float3 worldPos)
 {
     return mul(unity_MatrixVP,float4(worldPos,1)); 
 }*/
+
+float Square(float value)
+{
+    return value  * value;
+}
 
 #endif

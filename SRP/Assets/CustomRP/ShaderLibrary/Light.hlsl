@@ -17,7 +17,7 @@ struct Light
 
 int GetDirectionLightCount()
 {
-    return DirectionLightCount;
+    return min(DirectionLightCount,MAX_DIRECTION_LIGHT_COUNT);
 }   
 
 Light GetDirectionLight(int index)

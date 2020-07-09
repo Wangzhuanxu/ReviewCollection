@@ -26,8 +26,8 @@ Material:
     m_Floats:
     - _Clip: 1
     - _CutOff: 0.6
-    - _DstBlend: 10
-    - _SrcBlend: 5
+    - _DstBlend: 0
+    - _SrcBlend: 1
     - _ZWrite: 1
     m_Colors:
     - _BaseColor: {r: 1, g: 0.17089063, b: 1, a: 1}
