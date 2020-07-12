@@ -9,6 +9,7 @@ public class CustomRenderPipeline : RenderPipeline
 
     private readonly bool _gpuInstancing;
     private readonly bool _dynamicBatch;
+    private ShadowSettings _shadowSettings;
     /// <summary>
     /// 
     /// </summary>
@@ -18,16 +19,17 @@ public class CustomRenderPipeline : RenderPipeline
     {
         for (int i = 0; i < cameras.Length; i++)
         {
-            _render.Render(context,cameras[i],_gpuInstancing,_dynamicBatch);
+            _render.Render(context,cameras[i],_gpuInstancing,_dynamicBatch,_shadowSettings);
         }
         
     }
 
-    public CustomRenderPipeline(bool gpuInstancing, bool dynamicBatch,bool srpBatch)
+    public CustomRenderPipeline(bool gpuInstancing, bool dynamicBatch,bool srpBatch,ShadowSettings shadowSettings)
     {
         this._gpuInstancing = gpuInstancing;
         this._dynamicBatch = dynamicBatch;
         GraphicsSettings.useScriptableRenderPipelineBatching = srpBatch;
+        this._shadowSettings = shadowSettings;
         //使用线性空间的颜色值，线性空间颜色值看起来更好看，更符合人眼
         GraphicsSettings.lightsUseLinearIntensity = true;
     }

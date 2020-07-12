@@ -20,7 +20,7 @@ public partial class CameraRender
 
     private bool gpuInstancing;
     private bool dynamicBatch;
-    public void Render(ScriptableRenderContext context, Camera camera,bool gpuInstancing,bool dynamicBatch)
+    public void Render(ScriptableRenderContext context, Camera camera,bool gpuInstancing,bool dynamicBatch,ShadowSettings shadowSettings)
     {
         this._camera = camera;
         this._context = context;
@@ -31,25 +31,27 @@ public partial class CameraRender
         PrepareBufferName();
         PrepareForSceneWindow();
 #endif
-        if (!Cull() && clearFlag < CameraClearFlags.Depth) //depth为ui相机，只显示ui
+        if (!Cull(shadowSettings) && clearFlag < CameraClearFlags.Depth) //depth为ui相机，只显示ui
         {
             return;
         }
         SetUp();
-        _lightRender.Render(context,_results);
+      //  _lightRender.Render(context,_results,shadowSettings);
         DrawGeometry();
 
 #if UNITY_EDITOR
         DrawUnsupportedShaders();
         DrawGizmos();
 #endif
+        _lightRender.CleanUp();
         Submit();
     }
 
-    public bool Cull()
+    public bool Cull(ShadowSettings shadowSettings)
     {
         if (_camera.TryGetCullingParameters(out ScriptableCullingParameters _parameters))
         {
+            _parameters.shadowDistance = shadowSettings.maxDistance;
             _results = _context.Cull(ref _parameters);
             return true;
         }
