@@ -34,6 +34,25 @@
            #pragma fragment LitFragment
            ENDHLSL
         }
+        
+            Pass
+        {
+           Tags{"LightMode" = "ShadowCaster"}
+           //无需返回颜色值
+           ColorMask 0
+           
+           HLSLPROGRAM
+           #pragma target 3.5
+           //相当于声明了一个INSTANCING_ON的变体
+           #pragma multi_compile_instancing
+           #pragma shader_feature _CLIPPING
+           #pragma shader_feature _PREMULTIPLY_ALPHA
+           #include "ShadowCasterPass.hlsl"
+           #pragma vertex ShadowCasterVertex
+           #pragma fragment ShadowCasterFragment
+           ENDHLSL
+        }
     }
+    
     CustomEditor "CustomShaderGUI"
 }

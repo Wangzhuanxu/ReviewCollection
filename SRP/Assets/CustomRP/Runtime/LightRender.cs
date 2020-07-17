@@ -28,7 +28,7 @@ public class LightRender
         _commandBuffer.BeginSample(BufferName);
         _shadow.SetUp(context,results,shadowSettings);
         SetUpLights();
-       // _shadow.Render();
+        _shadow.Render();
         _commandBuffer.EndSample(BufferName);
         ExecuteCommandBuffer();
     }

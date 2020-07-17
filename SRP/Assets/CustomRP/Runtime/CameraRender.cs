@@ -35,8 +35,12 @@ public partial class CameraRender
         {
             return;
         }
+        _buffer.BeginSample(SampleName);
+        ExectureBuffer();
+        _lightRender.Render(context,_results,shadowSettings);
+        _buffer.EndSample(SampleName);
         SetUp();
-      //  _lightRender.Render(context,_results,shadowSettings);
+        
         DrawGeometry();
 
 #if UNITY_EDITOR
@@ -74,9 +78,9 @@ public partial class CameraRender
        //这里会运行一次CommandBuffer，对应的是上面那个 ClearRenderTarget
        ExectureBuffer();
         _buffer.BeginSample(SampleName);
- 
+        ExectureBuffer();
     }
-
+ 
     private void DrawGeometry()
     {
         //opaque
